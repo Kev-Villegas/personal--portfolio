@@ -38,15 +38,29 @@ const projectVariants = {
 
 const Project = ({ name, description, image, stack }: ProjectProps) => (
   <motion.div variants={projectVariants}>
-    <Card className="mx-auto flex w-full flex-col bg-zinc-950">
-      <CardHeader className="mb-1">
-        <Image
-          src={image}
-          alt={name}
-          quality={100}
-          className="mb-2 h-[200px] w-full rounded-b-lg rounded-t-xl object-fill"
-        />
+    <Card className="mx-auto flex h-full w-full flex-col bg-zinc-950 transition-all duration-300 hover:shadow-lg hover:shadow-blue-900/20">
+      <div className="relative w-full overflow-hidden">
+        <motion.div
+          whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
+          className="flex justify-center"
+        >
+          <Image
+            src={image}
+            alt={name}
+            quality={100}
+            width={600}
+            height={400}
+            className="h-auto max-h-[300px] w-full rounded-lg object-contain"
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "contain",
+            }}
+          />
+        </motion.div>
+      </div>
 
+      <CardHeader className="mb-1 pb-0 pt-2">
         <CardTitle className="flex items-center px-2 py-0 font-montserrat text-slate-200">
           <motion.span
             initial={{ opacity: 0, scale: 0 }}
@@ -65,12 +79,13 @@ const Project = ({ name, description, image, stack }: ProjectProps) => (
           {description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1">
+      <CardContent className="flex-1 pb-4">
         <div className="flex flex-wrap items-center justify-start gap-2 text-center">
           {stack.map((tech, index) => (
-            <div
+            <motion.div
               key={index}
-              className="flex cursor-pointer items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-1 font-raleway font-medium text-gray-300 transition-all duration-300 hover:scale-110"
+              whileHover={{ scale: 1.1 }}
+              className="flex cursor-pointer items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-1 font-raleway font-medium text-gray-300 transition-all duration-150 hover:bg-white/10"
             >
               <Image
                 src={tech.icon}
@@ -81,7 +96,7 @@ const Project = ({ name, description, image, stack }: ProjectProps) => (
                 className="rounded-sm"
               />
               <span className="text-sm">{tech.name}</span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </CardContent>
